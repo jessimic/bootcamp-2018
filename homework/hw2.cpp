@@ -83,6 +83,56 @@ class position
 class direction
 {
     public:
-        direction(double dx = 0., double dy = 0., double dz = 0.)
-        : dx(dx), dy(dy), dz(dz) {}
+        direction(double theta = 0., double phi = 0.) 
+        {
+            x_hat = std::sin(theta)*std::cos(phi) + std::cos(theta)*std::cos(phi) - std::sin(phi);
+            y_hat = std::sin(theta)*std::sin(phi) + std::cos(theta)*std::sin(phi) + std::cos(phi);
+            z_hat = std::cos(theta) + std::sin(theta);
+        }
+
+        //copy constructor
+        direction( const direction& d) : x_hat(d.x_hat), y_hat(d.y_hat), z_hat(d.z_hat) {}
+
+        //move constructor
+        position(double&& d)
+        : x_hat(d.x_hat), y_hat(d.y_hat), z_hat(d.z_hat)
+        {
+            d.x_hat = 0;
+            d.y_hat = 0;
+            d.z_hat = 0;
+
+        }
+
+
+        //set theta
+        void set_angles(const double& theta, const double& phi)
+        {
+            x_hat = std::sin(theta)*std::cos(phi) + std::cos(theta)*std::cos(phi) - std::sin(phi);
+            y_hat = std::sin(theta)*std::sin(phi) + std::cos(theta)*std::sin(phi) + std::cos(phi);
+            z_hat = std::cos(theta) + std::sin(theta);
+        }
+
+        //get x_hat
+        double const get_xhat()
+        {
+            return x_hat;
+        }
+
+        //get y_hat
+        double const get_yhat()
+        {
+            return y_hat;
+        }
+        
+        //get z_hat
+        double const get_zhat()
+        {
+            return z_hat;
+        }
+
+        private:
+            double x_hat;
+            double y_hat;
+            double z_hat;
+
 };
