@@ -23,31 +23,42 @@
 //            implement array and pair.  You only need
 //            to implement enough so that this compiles
 //            and you get the same result.
-#include <array> 
-using std::array;
+
+//#include <array> 
+//using std::array;
 //using std::pair;
-/*
-template(typename T, size_t N)
+
+template<typename T, size_t N>
 class array
 {
 private:
-    N size;
     T *myarray;
 public:
-    size = N
+    myarray = (T*) std::malloc(N*sizeof(T));  
+    
+    array(std::initializer_list<T> a){
+        for (int i = 0; i < N; ++i){
+            myarray[i] = a[i];
+        }
+    }
 
-    void setArray ( int elem, T val) {
-	myarray[elem] = val;
-	}
-
-};*/
+    
+};
 
 template <typename T1, typename T2>
-struct pair
+class pair
 {
+public:
+    //create variables to reference
     T1 first;
     T2 second;
-    pair(const T1& first, const T2& second);
+
+    //Make pair
+    pair(T1 one, T2 two): first(one), second(two){};
+
+    //destructor
+    ~pair(){};
+
 };
 
 
