@@ -28,22 +28,47 @@
 //using std::array;
 //using std::pair;
 
+
 template<typename T, size_t N>
 class array
 {
 private:
     T *myarray;
 public:
-    myarray = (T*) std::malloc(N*sizeof(T));  
-    
-    array(std::initializer_list<T> a){
-        for (int i = 0; i < N; ++i){
-            myarray[i] = a[i];
+
+    array(){myarray = (T*) std::malloc(N*sizeof(T));}
+
+    array(std::initializer_list<T> mylist): array(){
+        size_t index{0};
+        for (auto value : mylist){
+            myarray[index] = value;
+            ++index;
         }
     }
 
-    
+    void fill(T value)
+    {
+        for(size_t index{0}; index<N; ++index){
+            myarray[index] = value;
+        }
+    }
+
+    T* begin() const{ return &myarray[0]; };
+
+    T* end() const{ return &myarray[N]; };
+
+    ~array(){
+    free(myarray);
+  }
+
 };
+
+//template<typename T>
+//T* array<T,N>::begin(){return myarray[0]};
+
+//template<typename T>
+//T* array<T,N>::end(size_t N){return myarray[N-1]};
+
 
 template <typename T1, typename T2>
 class pair
